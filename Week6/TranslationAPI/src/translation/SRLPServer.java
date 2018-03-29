@@ -60,7 +60,7 @@ public class SRLPServer {
                   String dutch = SRLPMethod.GET.process(requestParameters[1]);
                   clientWriter.print("200 successfully translated\r\n\r\n".concat(dutch));
                 } catch (SRLPException ex) {
-                  clientWriter.print("501 No translation known\r\n\r\n");
+                  clientWriter.print("400 No translation known\r\n\r\n");
                 }
               } else {
                 try {
@@ -86,11 +86,28 @@ public class SRLPServer {
               break;
               
             case "PUT":
-              
+              if (requestParameters.length == 2) {
+                clientWriter.print("422 Missing translation for word\r\n\r\n");
+              } else {
+                try {
+                  String response = SRLPMethod.PUT.process(requestParameters[1], requestParameters[2]);
+                  clientWriter.print("200 success\r\n\r\n".concat(response));
+                } catch (SRLPException ex) {
+                  clientWriter.print("500 error processing your request\r\n\r\n");
+                }
+              }
               break;
               
             case "DELETE":
-              
+              try {
+                  String response = SRLPMethod.DELETE.process(requestParameters[1]);
+                  if (response != null) {
+                    clientWriter.print("200 success\r\n\r\n".concat(response));
+                  } else {
+                    clientWriter.print("400 word does not exist\r\n\r\n");
+                  }
+                } catch (SRLPException ex) {
+                }
               break;
             
             default:
