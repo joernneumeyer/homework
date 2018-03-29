@@ -60,7 +60,7 @@ public class SRLPClient {
     while ((line = this.reader.readLine()) != null) {
       response += line.concat("\r\n");
     }
-    return response.substring(0, response.length() - 2);
+    return response.length() >= 2 ? response.substring(0, response.length() - 2) : "";
   }
   
   public static void main(String[] args) {
@@ -82,7 +82,7 @@ public class SRLPClient {
     String request = String.join(" ", args);
     try {
       String response = client.sendRequest(request);
-      System.out.print(response);
+      System.out.println(response);
       client.close();
     } catch (IOException ex) {
       System.out.println("[Error] Error while sending request to the server!");
