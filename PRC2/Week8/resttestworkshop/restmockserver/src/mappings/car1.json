@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/car/1"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "id": 1,
+      "name": "porsche"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
