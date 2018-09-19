@@ -1,6 +1,11 @@
-public class LargeCoffeeDecorator extends CoffeeComponentDecorator {
-  public LargeCoffeeDecorator(CoffeeComponent c) {
+public class LargeCoffeeCupDecorator extends CoffeeComponentDecorator {
+  public LargeCoffeeCupDecorator(CoffeeComponent c) {
     super(c);
+  }
+
+  @Override
+  public String name() {
+    return "Large Cup";
   }
 
   @Override
@@ -10,6 +15,6 @@ public class LargeCoffeeDecorator extends CoffeeComponentDecorator {
 
   @Override
   public StringBuilder ingredients() {
-    return super.ingredients().append(", ").append("[large]");
+    return super.ingredients().append(", ").append(name());
   }
 }

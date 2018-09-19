@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class CoffeeMachine {
+public interface CoffeeMachine {
+  CoffeeComponent brewCoffee(CoffeeSize size);
 }

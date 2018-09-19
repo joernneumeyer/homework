@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class CoffeeSize {
+public enum CoffeeSize {
+  SMALL, REGULAR, LARGE
 }
