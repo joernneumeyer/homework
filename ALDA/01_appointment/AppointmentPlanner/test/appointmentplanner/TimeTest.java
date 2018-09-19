@@ -97,11 +97,17 @@ public class TimeTest {
     assertEquals(2, t.getHours());
     assertEquals(20, t.getMinutes());
   }
-  
+
   @Test
   public void testGetProperTimeNoramlizesNegativeHoursToBeZero() {
     Time t = Time.getProperTime(-2, 10);
     assertEquals(0, t.getHours());
+  }
+
+  @Test
+  public void testGetProperTimeNoramlizesMinutesIfTheProcessedHoursAreNegative() {
+    Time t = Time.getProperTime(-2, 10);
+    assertEquals(0, t.getMinutes());
   }
   
   @Test

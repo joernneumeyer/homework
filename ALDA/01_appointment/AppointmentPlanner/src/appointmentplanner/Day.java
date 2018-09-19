@@ -4,6 +4,7 @@ package appointmentplanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author ode
@@ -61,7 +62,7 @@ public final class Day {
     this.nr = nr;
     LUNCH_BREAK.setStart(LUNCH_TIME);
     this.nrOfAppointments = 0;
-    //TODO initialize datastructure for the appointments.
+    //TODO check for invalid day number
     if (nr >= 1 && nr <= 5) {
       this.appointments = new Node<>(LUNCH_BREAK);
       ++this.nrOfAppointments;
@@ -99,17 +100,12 @@ public final class Day {
    * planning.
    */
   public boolean canAddAppointmentOfDuration(TimeSpan duration) {
-    Time startTimeIterator = DAY_START;
-    Node<Appointment> appointmentIterator = appointments;
-    do {
-      Time appointmentStart = appointments.item.getStart();
-      TimeSpan availableTime = new TimeSpan(startTimeIterator, appointmentStart);
-      if (availableTime.getTimeSpanInMinutes() >= duration.getTimeSpanInMinutes()) {
+    TimeGap[] availableTimeGaps = this.getAvailableTimeGaps();
+    for (TimeGap t : availableTimeGaps) {
+      if (t.getLength().getTimeSpanInMinutes() >= duration.getTimeSpanInMinutes()) {
         return true;
       }
-
-      appointmentIterator = appointmentIterator.next;
-    } while (appointmentIterator != null);
+    }
     return false;
   }
 
@@ -129,7 +125,6 @@ public final class Day {
    * @param appointment start time of the appointment has been set in advance
    */
   public void addAppointmentWithStartTimeSet(Appointment appointment) {
-    // TODO fix infinite loop
     if (appointment.getStart() == null) return;
     if (appointment.getStart().isBefore(Day.DAY_START)) return ;
 
@@ -238,11 +233,15 @@ public final class Day {
    * @return an array of start times on which an appointment can be scheduled
    */
   public Time[] getAvailableStartTimesForAppointmentsOfDuration(TimeSpan duration) {
-    return Arrays
-      .stream(this.getAvailableTimeGaps())
-      .filter(x -> x.getLength().getTimeSpanInMinutes() >= duration.getTimeSpanInMinutes())
-      .map(TimeGap::getStart)
-      .toArray(Time[]::new);
+    List<Time> availableStartTimes = new ArrayList<>();
+    for (TimeGap t : this.getAvailableTimeGaps()) {
+      if (t.getLength().getTimeSpanInMinutes() < duration.getTimeSpanInMinutes()) {
+        continue;
+      }
+      availableStartTimes.add(t.getStart());
+    }
+    Time[] buffer = new Time[availableStartTimes.size()];
+    return availableStartTimes.toArray(buffer);
   }
 
   // METHODS INTRODUCED IN WEEK 4 OF APPOINTMENT PROJECT

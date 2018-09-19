@@ -1,6 +1,7 @@
 package appointmentplanner;
 
 import java.text.DecimalFormat;
+import java.util.Collections;
 
 /**
  * A 24 hour Time class
@@ -122,6 +123,7 @@ public final class Time {
     
     if (hours < 0) {
       hours = 0;
+      minutes = 0;
     }
     
     if (hours > 23) {

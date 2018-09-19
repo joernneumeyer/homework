@@ -32,6 +32,13 @@ public class DayTest {
   }
 
   @Test
+  public void testCanAddAppointmentOfDurationResolvesToFalseOnTheWeekend() {
+    Day d = new Day(6);
+    TimeSpan appointmentDuration = new TimeSpan(2, 0);
+    assertFalse(d.canAddAppointmentOfDuration(appointmentDuration));
+  }
+
+  @Test
   public void testAddAppointmentWithStartTimeSetAddsAProperAppointment() {
     Day d = new Day(1);
     Appointment app = new Appointment("Hello", new TimeSpan(1, 0));
