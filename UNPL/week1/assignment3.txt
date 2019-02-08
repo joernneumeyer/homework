@@ -1,0 +1,3 @@
+b is correct
+d is also correct, but if the passed char pointer is used for printing it will
+print the while string behind the pointer and not just the first character
