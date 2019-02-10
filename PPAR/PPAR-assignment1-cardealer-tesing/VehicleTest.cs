@@ -9,8 +9,8 @@ namespace PPAR_assignment1_cardealer_tesing
         [Fact]
         public void TestVehicleIdIncreasesIfANewVehicleIsCreated()
         {
-            Vehicle car = new Car(100, "BMW");
-            Vehicle car2 = new Car(100, "BMW");
+            Vehicle car = new Car();
+            Vehicle car2 = new Car();
             Assert.NotEqual(car.Id, car2.Id);
         }
     }
