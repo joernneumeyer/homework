@@ -1,44 +1,50 @@
 using System.Collections.Generic;
 using System.Linq;
+using PPAR_assignment1_cardealer.Persistence;
 using PPAR_assignment1_cardealer.Vehicles;
 
 namespace PPAR_assignment1_cardealer
 {
     public class CarDealer
     {
-        List<Vehicle> vehicles = new List<Vehicle>();
+        private IVehicleStorage storage;
 
-        public IEnumerable<Vehicle> AllAvailableVehicles => this.vehicles;
+        public CarDealer(IVehicleStorage storage)
+        {
+            this.storage = storage;
+        }
 
-        public int TotalVehiclesAvailable => this.vehicles.Count;
+        public IEnumerable<Vehicle> AllAvailableVehicles => this.storage.GetAllAvailableVehicles();
 
-        public double TotalValueOfAllVehicles => this.vehicles.Select(x => x.Price).Sum();
+        public int TotalVehiclesAvailable => this.storage.GetVehicleCount();
+
+        public double TotalValueOfAllVehicles => this.storage.GetTotalValueOfAllVehicles();
 
         public double? PriceOfVehicle(int id)
         {
-            Vehicle v = this.vehicles.Find(x => x.Id == id);
+            Vehicle v = this.storage.Get<Vehicle>(id);
 
             return v?.Price;
         }
 
         public void IncreaseAllPricesByPercentage(double percentage)
         {
-            this.vehicles.ForEach(x => x.Price = x.Price * (1 + percentage / 100));
+            this.storage.IncreaseAllPricesByPercentage(percentage);
         }
 
         public IEnumerable<Vehicle> SearchVehicleByLicensePlate(string licensePlate)
         {
-            return this.vehicles.Where(x => x.LicensePlate.Contains(licensePlate));
+            return this.storage.SearchVehicleByLicensePlate(licensePlate);
         }
 
         public IEnumerable<Vehicle> SearchVehicleInPriceRange(double lowest, double highest)
         {
-            return this.vehicles.Where(x => x.Price <= highest && x.Price >= lowest);
+            return this.storage.SearchVehiclesInPriceRange(lowest, highest);
         }
 
         public void AddVehicle(Vehicle v)
         {
-            this.vehicles.Add(v);
+            this.storage.Insert(v);
         }
     }
 }
