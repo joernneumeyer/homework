@@ -16,9 +16,6 @@ int strcmp(const char *s1, const char *s2) {
   int s2_length = 0;
   for (; s1[s1_length] != 0; ++s1_length);
   for (; s2[s2_length] != 0; ++s2_length);
-  /*if (s1_length != s2_length) {
-    return s1_length - s2_length;
-  }*/
 
   if (s1_length == 0 && s2_length == 0) {
     return 0;
