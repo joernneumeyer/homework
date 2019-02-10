@@ -1,13 +1,11 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 const int row_count = 8;
 const int column_count = 8;
-int* column_numbers = 0;
+const int column_numbers[] = {1,2,3,4,5,6,7,8};
+const char* rows_chars = "ABCDEFGH";
 
 void chess_field_to_array_index(const char* field, int* row, int* column) {
-  const char* rows_chars = "ABCDEFGH";
-
   for (int i = 0; i < row_count; ++i) {
     if (field[0] == rows_chars[i]) {
       *row = i;
@@ -26,13 +24,7 @@ void chess_field_to_array_index(const char* field, int* row, int* column) {
 }
 
 int main() {
-  column_numbers = (int*)malloc(sizeof(int) * column_count);
-  for (int i = 0; i < column_count; ++i) {
-    column_numbers[i] = i + 1;
-  }
-
   int col = -1, row = -1;
   chess_field_to_array_index("C5", &row, &col);
   printf("The resulting row index is %d and the column index is %d\r\n", row, col);
-  free(column_numbers);
 }
