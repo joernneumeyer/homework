@@ -7,10 +7,9 @@ int main() {
   int second_smallest = __INT32_MAX__;
 
   do {
-    //current_node = current_node->next;
     char buffer[10];
     int number = 0;
-    
+
     if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
       fprintf(stderr, "Error in fgets()\n");
       exit(EXIT_FAILURE);
