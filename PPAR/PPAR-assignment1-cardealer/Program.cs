@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using PPAR_assignment1_cardealer.Commands;
+using PPAR_assignment1_cardealer.Persistence;
 using PPAR_assignment1_cardealer.Vehicles;
 
 namespace PPAR_assignment1_cardealer
@@ -12,7 +13,8 @@ namespace PPAR_assignment1_cardealer
     {
         static void Main(string[] args)
         {
-            CarDealer dealer = new CarDealer();
+            IVehicleStorage storage = JsonStorage.LoadFromFile("/home/joernneumeyer/vehicles");
+            CarDealer dealer = new CarDealer(storage);
             IMenuCommand cmd;
             
             Vehicle v = new Car();
@@ -26,10 +28,13 @@ namespace PPAR_assignment1_cardealer
             v.Vendor = "MAN";
             v.LicensePlate = "YTG";
             dealer.AddVehicle(v);
+
+            bool repeat = true;
             
             do
             {
                 Console.WriteLine("Please select an option:");
+                Console.WriteLine("q: Quit");
                 Console.WriteLine("1: Add a new vehicle");
                 Console.WriteLine("2: List all available vehicles");
                 Console.WriteLine("3: Show number of available vehicles");
@@ -60,6 +65,10 @@ namespace PPAR_assignment1_cardealer
                     case "7":
                         cmd = new SearchVehicleInPriceRangeCommand();
                         break;
+                    case "q":
+                        cmd = null;
+                        repeat = false;
+                        break;
                     default:
                         cmd = null;
                         break;
@@ -72,7 +81,7 @@ namespace PPAR_assignment1_cardealer
                     Console.ReadLine();
                     Console.Clear();
                 }
-            } while (true);
+            } while (repeat);
         }
     }
 }
