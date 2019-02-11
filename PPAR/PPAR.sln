@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPAR-assignment1-cardealer", "PPAR-assignment1-cardealer\PPAR-assignment1-cardealer.csproj", "{A305A036-78AD-4547-8A52-4CF37D92E110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPAR-assignment1-cardealer-tesing", "PPAR-assignment1-cardealer-tesing\PPAR-assignment1-cardealer-tesing.csproj", "{A6C65691-204B-4E42-BD41-94741FDD49A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A305A036-78AD-4547-8A52-4CF37D92E110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A305A036-78AD-4547-8A52-4CF37D92E110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A305A036-78AD-4547-8A52-4CF37D92E110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A305A036-78AD-4547-8A52-4CF37D92E110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C65691-204B-4E42-BD41-94741FDD49A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C65691-204B-4E42-BD41-94741FDD49A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C65691-204B-4E42-BD41-94741FDD49A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C65691-204B-4E42-BD41-94741FDD49A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
