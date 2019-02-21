@@ -1,0 +1,17 @@
+nr;name;price;cooking time
+10;Peking-eend;19.85;15
+11;Koe Low Ji;10.25;13
+12;Kong Siu Yu;12.75;18
+13;Yu Hong Yuk Shi;9.75 ;16
+19;Koe Low Ro;11.25; 8
+23;Sow Man Yu;8.75;5
+33;Sow Mi Fang;9.95;8
+34;Sow Gado;14.25;12
+41;Kong Po Kai Tin;8.75;10
+42;Tau Foe Po;8.75;9
+43;Sow Tjap Tjoy;10.95;10
+45;Nasi Goreng;8.95;10
+46;Bami Goreng;7.75;11
+47;Foe Young Hai;8.75;15
+48;Babi Panggang;10.75;12
+49;Gangnam Style;24.80;200
