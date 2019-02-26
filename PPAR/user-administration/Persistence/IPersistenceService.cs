@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace user_administration.Persistence
@@ -8,5 +9,6 @@ namespace user_administration.Persistence
         T Read<T>(int id) where T : IPersistableEntity, new();
         T Update<T>(int id, T record) where T : IPersistableEntity, new();
         void Delete<T>(int id) where T : IPersistableEntity, new();
+        IEnumerable<T> ReadAll<T>()where T : IPersistableEntity, new();
     }
 }
