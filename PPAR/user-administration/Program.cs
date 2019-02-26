@@ -18,11 +18,30 @@ namespace user_administration
                 .First(x => x.Name == dbFactoryClassName)
                 ?.GetConstructor(new Type[]{})
                 ?.Invoke(new object[]{});
+
+            if (factory == null)
+            {
+                Console.WriteLine("could not instantiate database factory from app.config!");
+                return;
+            }
             
-            Student s = new Student() { Class = "foo", Cohort = "bar", Nationality = "DE"};
+            Student s = new Student() { FirstName = "foos", LastName= "bars", Nationality = "DE"};
+            Lecturer l = new Lecturer()
+            {
+                Nationality = "NL",
+                Email = "some@thing.nl",
+                FirstName = "foo",
+                LastName = "bar",
+                Abbreviation = "fb",
+                DateStarted = new DateTime(2015, 5, 1)
+            };
             
-            // factory.GetConnection().Create<Student>(s);
-            factory.GetConnection().Read<Student>(0);
+            // factory.GetConnection().Create(s);
+            // Lecturer l2 = factory.GetConnection().Read<Lecturer>(0);
+
+            AdministrationCommand cmd;
+            
+            AdministrationCommands.ShowUserById(factory.GetConnection());
 
             /*string input;
             do
