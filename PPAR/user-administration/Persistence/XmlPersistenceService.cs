@@ -40,27 +40,56 @@ namespace user_administration.Persistence
         private T deserialize<T>(XElement xml) where T : IPersistableEntity, new()
         {
             T instance = new T();
-            var props = typeof(T).GetProperties();
+            var props = typeof(T).GetProperties().Where(x => Attribute.IsDefined(x, typeof(PersistedAttribute)));
 
             foreach (var n in xml.Nodes())
             {
                 var node = (XElement) n;
-                var prop = props.First(x => x.Name == node.Name);
-                if (prop == null) continue;
-                if (prop.PropertyType.Name == nameof(String))
+                var prop = props.First(x =>
                 {
-                    prop.SetValue(instance, node.Value);
-                    continue;
-                }
-                var value = prop
+                    string name = x.Name;
+                    var attr = x.GetCustomAttribute<PersistedAttribute>();
+                    if (attr.PersistedName != null)
+                    {
+                        name = attr.PersistedName;
+                    }
+                    return name == node.Name;
+                });
+                if (prop == null) continue;
+                prop.SetValue(instance, Transformers.GetFittingTransformerFromString(prop.PropertyType)(node.Value));
+                /*var value = prop
                     .PropertyType
                     .GetConstructor(new[] {typeof(string)})
-                    ?.Invoke(new object[] {node.Value});
-                if (value == null) continue;
-                prop.SetValue(instance, value);
+                    ?.Invoke(new object[] {node.Value});*/
+                //if (value == null) continue;
+                //prop.SetValue(instance, value);
             }
 
             return instance;
+        }
+
+        private XElement serialize<T>(T entity) where T : IPersistableEntity
+        {
+            var props = typeof(T).GetProperties().Where(x => Attribute.IsDefined(x, typeof(PersistedAttribute)));
+
+            XElement child = new XElement(typeof(T).Name);
+            foreach (var prop in props)
+            {
+                string propName = prop.Name;
+                {
+                    var attr = prop.GetCustomAttribute<PersistedAttribute>();
+                    if (attr.PersistedName != null)
+                    {
+                        propName = attr.PersistedName;
+                    }
+                }
+                
+                XElement propChild = new XElement(propName);
+                propChild.SetValue(Transformers.GetFittingTransformerToString(prop.PropertyType)(prop.GetValue(entity)));
+                child.Add(propChild);
+            }
+
+            return child;
         }
 
         public void Create<T>(T record) where T : IPersistableEntity, new()
@@ -70,18 +99,8 @@ namespace user_administration.Persistence
                 throw new ArgumentException("Cannot persist abstract types!");
             }
 
-            var props = typeof(T).GetProperties();
-
-            XElement root = this.readPersistenceFile<T>();
-            XElement child = new XElement(typeof(T).Name);
-            foreach (var prop in props)
-            {
-                XElement propChild = new XElement(prop.Name);
-                propChild.SetValue(prop.GetValue(record)?.ToString() ?? "");
-                child.Add(propChild);
-            }
-
-            root.Add(child);
+            var root = readPersistenceFile<T>();
+            root.Add(serialize(record));
 
             root.Save(this.getPersistencePath<T>());
         }
@@ -92,7 +111,8 @@ namespace user_administration.Persistence
             XElement root = this.readPersistenceFile<T>();
             foreach (var node in root.Nodes())
             {
-                this.deserialize<T>((XElement) node);
+                T entity = this.deserialize<T>((XElement) node);
+                if (entity.Id == id) return entity;
             }
 
             return instance;
@@ -106,6 +126,18 @@ namespace user_administration.Persistence
         public void Delete<T>(int id) where T : IPersistableEntity, new()
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<T> ReadAll<T>() where T : IPersistableEntity, new()
+        {
+            XElement root = readPersistenceFile<T>();
+            List<T> tuples = new List<T>();
+            foreach (var node in root.Nodes())
+            {
+                tuples.Add(deserialize<T>((XElement)node));
+            }
+
+            return tuples;
         }
     }
 }
