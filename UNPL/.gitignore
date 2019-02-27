@@ -2,3 +2,6 @@
 **/.vscode/
 **/run
 **/*.bin
+*.o
+*.a
+*.so
