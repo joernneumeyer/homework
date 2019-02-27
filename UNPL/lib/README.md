@@ -1,5 +1,5 @@
-# neu-lib
-neu-lib is a small library I build to add a little more convenience to my C assignments.
+# neu
+neu is a small library I am building to add a little more convenience to my C assignments.
 
 ## neu_memory
 This library offers some functionality, to make dynamic memory management easier
