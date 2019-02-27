@@ -1,6 +1,12 @@
 # neu-lib
 neu-lib is a small library I build to add a little more convenience to my C assignments.
 
+## neu_memory
+This library offers some functionality, to make dynamic memory management easier
+
+### defined macros
+* ```neu_alloc(type, size)``` allocates a pointer of the given type via ```malloc``` with the size of the given data type multiplied by the given factor for easy array allocation.
+
 ## neu_types
 This library defines some common data types and macros to create them.
 
