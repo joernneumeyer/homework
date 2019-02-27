@@ -39,10 +39,11 @@ void neu_assert(boolean condition, const char* message) {
 
 void neu_assert_report() {
   if (neu_assert_message_head->value == neu_assert_status_success) {
-    printf("No assertion errors!\r\n");
+    printf("No assertion errors. %d assertions without errors.\r\n", neu_assert_assertion_counter);
     return;
   }
   neu_assert_node_t* runner = neu_assert_message_head;
+  printf("The following assertions failed:\r\n\r\n");
   while (runner) {
     printf("%s\r\n", runner->value);
     runner = runner->next;
