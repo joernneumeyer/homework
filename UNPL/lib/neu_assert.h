@@ -54,4 +54,22 @@ void neu_assert_report();
  */
 #define neu_assert_string_equals_m(str1, str2, message) neu_assert(strcmp(str1, str2) == 0, message)
 
+/*
+ * Makes an assertion, that the provided expression evaluates to true.
+ */
+#define neu_assert_true(cond) { neu_assert_assertion_error_message_default; neu_assert(cond == true, neu_assert_message_buffer);}
+/**
+ * Makes an assertion, that the provided expression evaluates to true and specifies an error message.
+ */
+#define neu_assert_true_m(cond, message) neu_assert(cond == true, message)
+
+/*
+ * Makes an assertion, that the provided expression evaluates to false.
+ */
+#define neu_assert_false(cond) { neu_assert_assertion_error_message_default; neu_assert(cond == false, neu_assert_message_buffer);}
+/**
+ * Makes an assertion, that the provided expression evaluates to false and specifies an error message.
+ */
+#define neu_assert_false_m(cond, message) neu_assert(cond == false, message)
+
 #endif
