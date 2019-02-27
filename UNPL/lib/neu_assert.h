@@ -17,7 +17,7 @@ void neu_assert_report();
   char* neu_assert_message_buffer = neu_alloc(char, 150); \
   { \
     memset(neu_assert_message_buffer, 0, sizeof(char) * 150); \
-    sprintf(neu_assert_message_buffer, "Assertion in file '%s' on line %d failed!", __FILE__, __LINE__); \
+    sprintf(neu_assert_message_buffer, "Assertion in function '%s' failed! %s:%d", __func__, __FILE__, __LINE__); \
   }
 /*
  * Makes an assertion, that the two passed values are equal.
