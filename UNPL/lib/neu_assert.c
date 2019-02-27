@@ -8,18 +8,40 @@ typedef struct neu_assert_node {
 } neu_assert_node_t;
 
 neu_assert_node_t* neu_assert_node_make() {
-  return neu(neu_assert_node_t, 1);
+  neu_assert_node_t* result = neu_alloc(neu_assert_node_t, 1);
+  result->message = NULL;
+  result->next = NULL;
+  return result;
 }
 
+const char* neu_assert_status_failed = "failed";
+const char* neu_assert_status_success = "success";
 neu_assert_node_t* neu_assert_message_head = NULL;
+neu_assert_node_t* neu_assert_message_tail = NULL;
 
 void neu_assert_init() {
   neu_assert_message_head = neu_assert_node_make();
+  neu_assert_message_head->message = neu_assert_status_success;
+  neu_assert_message_tail = neu_assert_message_head;
 }
 
 void neu_assert(boolean condition, cstring message) {
   if (condition) return;
+  neu_assert_message_head->message = neu_assert_status_failed;
   neu_assert_node_t* assert_message = neu_assert_node_make();
   assert_message->message = message;
-  neu_assert_message_head->next = assert_message;
+  neu_assert_message_tail->next = assert_message;
+  neu_assert_message_tail = assert_message;
+}
+
+void neu_assert_report() {
+  if (neu_assert_message_head->message == neu_assert_status_success) {
+    printf("No assertion errors!\r\n");
+    return;
+  }
+  neu_assert_node_t* runner = neu_assert_message_head;
+  while (runner) {
+    printf("%s\r\n", runner->message);
+    runner = runner->next;
+  }
 }
