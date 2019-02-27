@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 if [[ ! $1 ]];
 then
   echo "please provide the path to a C file!"
