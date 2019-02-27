@@ -16,6 +16,7 @@ neu_assert_node_t* neu_assert_node_make() {
 
 
 int neu_assert_assertion_counter = 0;
+int neu_assert_assertion_counter_failed = 0;
 
 const char* neu_assert_status_failed = "failed";
 const char* neu_assert_status_success = "success";
@@ -31,6 +32,7 @@ void neu_assert_init() {
 void neu_assert(boolean condition, cstring message) {
   ++neu_assert_assertion_counter;
   if (condition) return;
+  ++neu_assert_assertion_counter_failed;
   neu_assert_message_head->message = neu_assert_status_failed;
   neu_assert_node_t* assert_message = neu_assert_node_make();
   assert_message->message = message;
