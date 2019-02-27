@@ -11,4 +11,11 @@ typedef unsigned char boolean;
     struct name* next; \
   } name ## _t;
 
+#define neu_types_double_linked_list_struct(name, type) \
+typedef struct name { \
+  type value; \
+  struct name* next; \
+  struct name* last; \
+} name ## _t;
+
 #endif
