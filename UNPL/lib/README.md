@@ -1,6 +1,29 @@
 # neu-lib
 neu-lib is a small library I build to add a little more convenience to my C assignments.
 
+## neu_types
+This library defines some common data types and macros to create them.
+
+### defined types
+* ```boolean``` is a typedef to present either a true or false value (defined as ```unsigned char```)
+
+### defined constants
+* ```true = 1``` just a numeric constant for the usage in combination with boolean
+* ```false = 1``` just a numeric constant for the usage in combination with boolean
+
+### defined macros
+
+#### neu_types_linked_list_struct(name, type)
+neu_types_linked_list_struct is a macro to automatically generate a struct with a certain name for a certain data type to represent a linked list node.
+As an example: if you were to use the macro like ```neu_types_linked_list_struct(string_linked_list_node, const char *)``` the following struct would be produced:
+```c
+typedef struct string_linked_list_node {
+  const char* value;
+  struct string_linked_list_node* next;
+} string_linked_list_node_t;
+```
+__NOTE__: The struct name will automatically be appended by an ```_t``` to represent the type name.
+
 ## neu_assert
 neu_assert is my assertion library.
 It is very simple, straight forward and offers some test reporting.
