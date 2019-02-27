@@ -10,7 +10,7 @@ void neu_assert_init();
 /**
  * Makes an assertion and specifies an error message.
  */
-void neu_assert(boolean condition, cstring message);
+void neu_assert(boolean condition, const char* message);
 
 void neu_assert_report();
 #define neu_assert_assertion_error_message_default \
