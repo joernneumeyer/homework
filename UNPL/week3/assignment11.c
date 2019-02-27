@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "helper.h"
+#include "../helper.h"
 #define NUMBER_OF_DAYS 3
 
 enum week {Mon, Tue, Wed, Thur, Fri, Sat, Sun};
