@@ -72,4 +72,13 @@ void neu_assert_report();
  */
 #define neu_assert_false_m(cond, message) neu_assert(cond == false, message)
 
+/*
+ * Makes an assertion, that the provided expression evaluates to a non-zero value.
+ */
+#define neu_assert_non_zero(cond) { neu_assert_assertion_error_message_default; neu_assert(cond != 0, neu_assert_message_buffer);}
+/**
+ * Makes an assertion, that the provided expression evaluates to a non-zero value and specifies an error message.
+ */
+#define neu_assert_non_zero_m(cond, message) neu_assert(cond != 0, message)
+
 #endif
