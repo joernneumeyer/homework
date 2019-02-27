@@ -4,7 +4,11 @@
 typedef unsigned char boolean;
 #define true 1
 #define false 0
-typedef char* mstring;
-typedef const char* cstring;
+
+#define neu_types_linked_list_struct(name, type) \
+  typedef struct name { \
+    type value; \
+    struct name* next; \
+  } name ## _t;
 
 #endif
