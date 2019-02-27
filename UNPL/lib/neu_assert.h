@@ -45,5 +45,13 @@ void neu_assert_report();
  * Makes an assertion, that the first value is smaller than the second value and specifies an error message.
  */
 #define neu_assert_smaller_than_m(val1, val2, message) neu_assert(val1 < val2, message)
+/*
+ * Makes an assertion, that the two provided strings are equal.
+ */
+#define neu_assert_string_equals(str1, str2) { neu_assert_assertion_error_message_default; neu_assert(strcmp(str1, str2) == 0, neu_assert_message_buffer);}
+/*
+ * Makes an assertion, that the two provided strings are equal and specifies an error message.
+ */
+#define neu_assert_string_equals_m(str1, str2, message) neu_assert(strcmp(str1, str2) == 0, message)
 
 #endif
