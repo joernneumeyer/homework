@@ -1,5 +1,5 @@
-#include "neu_assert.h"
-#include "neu_memory.h"
+#include <neu_assert.h>
+#include <neu_memory.h>
 
 struct neu_assert_node {
   cstring message;

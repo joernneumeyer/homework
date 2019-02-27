@@ -1,6 +1,6 @@
 #ifndef NEU_ASSERT_H
 #define NEU_ASSERT_H 1
-#include "neu_types.h"
+#include <neu_types.h>
 
 /**
  * Makes an assertion and specifies an error message.
