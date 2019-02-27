@@ -50,4 +50,10 @@ void neu_assert_report() {
     printf("%s\r\n", runner->message);
     runner = runner->next;
   }
+  printf(
+    "%d total assertions with %d failures (%d%% success rate)\r\n",
+    neu_assert_assertion_counter,
+    neu_assert_assertion_counter_failed,
+    ((neu_assert_assertion_counter_failed * 10000) / (neu_assert_assertion_counter * 100))
+  );
 }
