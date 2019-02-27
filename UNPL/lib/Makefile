@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
 
-lib: neu_memory.o neu_assert.o
+lib: memory assert
 	ar rcs libneu.a neu_memory.o neu_assert.o
 
 memory: neu_memory.c
