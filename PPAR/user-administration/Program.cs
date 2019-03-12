@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
 using user_administration.Persistence;
 using user_administration.Users;
@@ -25,25 +27,12 @@ namespace user_administration
                 return;
             }
             
-            Student s = new Student() { FirstName = "foos", LastName= "bars", Nationality = "DE"};
-            Lecturer l = new Lecturer()
-            {
-                Nationality = "NL",
-                Email = "some@thing.nl",
-                FirstName = "foo",
-                LastName = "bar",
-                Abbreviation = "fb",
-                DateStarted = new DateTime(2015, 5, 1)
-            };
-            
-            // factory.GetConnection().Create(s);
-            // Lecturer l2 = factory.GetConnection().Read<Lecturer>(0);
+            typeof(User).GetField("idCounter", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, int.Parse(ConfigurationManager.AppSettings["IdCounter"]));
 
-            AdministrationCommand cmd;
-            
-            AdministrationCommands.ShowUserById(factory.GetConnection());
+            var db = factory.GetConnection();
 
-            /*string input;
+            string input;
+            AdministrationCommand cmd = null;
             do
             {
                 Console.WriteLine("1: Create User");
@@ -56,11 +45,25 @@ namespace user_administration
                 
                 switch (input)
                 {
+                    case "1":
+                        cmd = AdministrationCommands.CreateNewUser;
+                        break;
                     
+                    case "2":
+                        cmd = AdministrationCommands.ShowUsers;
+                        break;
+                    
+                    case "3":
+                        cmd = AdministrationCommands.ShowUserById;
+                        break;
+                    
+                    default:
+                        cmd = null;
+                        break;
                 }
-                
-                
-            } while (input != "4");*/
+
+                cmd?.Invoke(db);
+            } while (input != "4");
         }
     }
 }

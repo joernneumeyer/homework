@@ -12,7 +12,10 @@ namespace user_administration.Users
 
         public User()
         {
-            this.Id = ++idCounter;
+            if (this.Id == 0)
+            {
+                this.Id = ++idCounter;
+            }
         }
         
         [PersistedAttribute("last_name")]

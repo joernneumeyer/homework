@@ -18,4 +18,9 @@ typedef struct name { \
   struct name* last; \
 } name ## _t;
 
+typedef struct neu_types_trie {
+  char key;
+  void* data;
+} neu_types_trie_t;
+
 #endif
