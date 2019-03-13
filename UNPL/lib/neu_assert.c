@@ -5,7 +5,7 @@
 neu_types_linked_list_struct(neu_assert_node, const char*);
 
 neu_assert_node_t* neu_assert_node_make() {
-  neu_assert_node_t* result = neu_alloc(neu_assert_node_t, 1);
+  neu_assert_node_t* result = neu_calloc(neu_assert_node_t, 1);
   result->value = NULL;
   result->next = NULL;
   return result;
