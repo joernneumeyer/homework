@@ -14,9 +14,8 @@ void neu_assert(boolean condition, const char* message);
 
 void neu_assert_report();
 #define neu_assert_assertion_error_message_default \
-  char* neu_assert_message_buffer = neu_alloc(char, 150); \
+  char* neu_assert_message_buffer = neu_calloc(char, 150); \
   { \
-    memset(neu_assert_message_buffer, 0, sizeof(char) * 150); \
     sprintf(neu_assert_message_buffer, "Assertion in function '%s' failed! %s:%d", __func__, __FILE__, __LINE__); \
   }
 /*
