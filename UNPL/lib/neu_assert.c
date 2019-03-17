@@ -2,10 +2,10 @@
 #include <neu_memory.h>
 #include <neu_types.h>
 
-neu_types_linked_list_struct(neu_assert_node, const char*);
+neu_types_linked_list_struct(neu_assert_message_node, const char*);
 
-neu_assert_node_t* neu_assert_node_make() {
-  neu_assert_node_t* result = neu_calloc(neu_assert_node_t, 1);
+neu_assert_message_node_t* neu_assert_message_node_make() {
+  neu_assert_message_node_t* result = neu_calloc(neu_assert_message_node_t, 1);
   result->value = NULL;
   result->next = NULL;
   return result;
@@ -15,11 +15,11 @@ neu_assert_node_t* neu_assert_node_make() {
 int neu_assert_assertion_counter = 0;
 int neu_assert_assertion_counter_failed = 0;
 
-neu_assert_node_t* neu_assert_message_head = NULL;
-neu_assert_node_t* neu_assert_message_tail = NULL;
+neu_assert_message_node_t* neu_assert_message_head = NULL;
+neu_assert_message_node_t* neu_assert_message_tail = NULL;
 
 void neu_assert_init() {
-  neu_assert_message_head = neu_assert_node_make();
+  neu_assert_message_head = neu_assert_message_node_make();
   neu_assert_message_tail = neu_assert_message_head;
 }
 
@@ -27,7 +27,7 @@ void neu_assert(boolean condition, const char* message) {
   ++neu_assert_assertion_counter;
   if (condition) return;
   ++neu_assert_assertion_counter_failed;
-  neu_assert_node_t* assert_message = neu_assert_node_make();
+  neu_assert_message_node_t* assert_message = neu_assert_message_node_make();
   assert_message->value = message;
   neu_assert_message_tail->next = assert_message;
   neu_assert_message_tail = assert_message;
@@ -38,7 +38,7 @@ void neu_assert_report() {
     printf("No assertion errors. %d assertions without errors.\r\n", neu_assert_assertion_counter);
     return;
   }
-  neu_assert_node_t* runner = neu_assert_message_head->next;
+  neu_assert_message_node_t* runner = neu_assert_message_head->next;
   printf("The following assertions failed:\r\n\r\n");
   while (runner) {
     printf("%s\r\n", runner->value);
