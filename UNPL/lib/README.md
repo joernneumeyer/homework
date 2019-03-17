@@ -1,6 +1,11 @@
 # neu
 neu is a small library I am building to add a little more convenience to my C assignments.
 
+* [neu_memory](#neu_memory)
+* [neu_types](#neu_types)
+* [neu_assert](#neu_assert)
+  * [test automation](#test-automation)
+
 ## neu_memory
 This library offers some functionality, to make dynamic memory management easier
 
@@ -73,6 +78,18 @@ Assertion in function 'main' failed! /homework/UNPL/test.c:5
 In these examples, I made use of one of the pre-defined assertion macros.
 The actual assertiob function ```void neu_assert(boolean condition, const char* message)``` can also just be used directly.
 However, there are some pre-defined macros, which also make use auto generated error messages, to give hints about the failed assertion.
+
+#### test automation
+There is also a much easier way to run your tests.
+The library provides an automated script for bash which runs all the test functions you defined.
+To use the script, you only have to run it and pass it the root folder of your tests as the first argument.
+The script will then look for all files in that directory which have the file ending ```.test.h```.
+All functions in these headers, which have ```test``` at the beginning of their name will be registered as test cases to be run by the script.
+
+The script generates some source code which contains the test setup.
+This auto generated code will be automatiacally removed at the end of the script.
+However, if you want to inspect the generated files, you just have to specify the ```--no-clean``` flag at the end of the test invocation. E.g. ```lib/test.sh week4/tests --no-clean```
+
 #### pre-defined assertion macros
 All of the following pre-defined macros will use the default failed message, in case the assertion fails.
 If you want to provide your own error message, you should add an ```_m``` to the macro you want to use, so ```neu_assert_equals(val1, val2)``` becomes ```neu_assert_equals_m(val1, val2, message)```.
