@@ -12,7 +12,13 @@ void neu_assert_init();
  */
 void neu_assert(boolean condition, const char* message);
 
+/**
+ * Prints a report of the outcome of the tests.
+ */
 void neu_assert_report();
+/**
+ * Constructs the default assertion error message.
+ */
 #define neu_assert_assertion_error_message_default \
   char* neu_assert_message_buffer = neu_calloc(char, 150); \
   { \
