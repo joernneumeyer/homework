@@ -4,7 +4,7 @@
 
 neu_types_linked_list_struct(neu_assert_message_node, const char*);
 typedef struct neu_assert_test_node {
-  void(*test)(void);
+  neu_assert_test_case;
   struct neu_assert_test_node* next;
 } neu_assert_test_node_t;
 
@@ -15,7 +15,7 @@ neu_assert_message_node_t* neu_assert_message_node_make() {
   return result;
 }
 
-neu_assert_message_node_t* neu_assert_test_node_make() {
+neu_assert_test_node_t* neu_assert_test_node_make() {
   neu_assert_test_node_t* result = neu_calloc(neu_assert_test_node_t, 1);
   result->test = NULL;
   result->next = NULL;
@@ -29,9 +29,16 @@ int neu_assert_assertion_counter_failed = 0;
 neu_assert_message_node_t* neu_assert_message_head = NULL;
 neu_assert_message_node_t* neu_assert_message_tail = NULL;
 
+
+neu_assert_test_node_t* neu_assert_test_head = NULL;
+neu_assert_test_node_t* neu_assert_test_tail = NULL;
+
 void neu_assert_init() {
   neu_assert_message_head = neu_assert_message_node_make();
   neu_assert_message_tail = neu_assert_message_head;
+
+  neu_assert_test_head = neu_assert_test_node_make();
+  neu_assert_test_tail = neu_assert_test_head;
 }
 
 void neu_assert(boolean condition, const char* message) {
