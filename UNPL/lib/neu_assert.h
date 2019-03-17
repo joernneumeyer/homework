@@ -5,7 +5,22 @@
 #include <stdio.h>
 #include <string.h>
 
+#define neu_assert_test_case void(*test)(void)
+
+/**
+ * Initializes the library.
+ */
 void neu_assert_init();
+
+/**
+ * Adds a test case to list of test cases to execute.
+ */
+void neu_assert_add_test(neu_assert_test_case);
+
+/**
+ * Runs all the registered test cases.
+ */
+void neu_assert_run();
 
 /**
  * Makes an assertion and specifies an error message.
