@@ -86,6 +86,14 @@ To use the script, you only have to run it and pass it the root folder of your t
 The script will then look for all files in that directory which have the file ending ```.test.h```.
 All functions in these headers, which have ```test``` at the beginning of their name will be registered as test cases to be run by the script.
 
+```c
+#include <neu_assert.h>
+
+void test_something() {
+  neu_assert_equals(1, 1);
+}
+```
+
 The script generates some source code which contains the test setup.
 This auto generated code will be automatiacally removed at the end of the script.
 However, if you want to inspect the generated files, you just have to specify the ```--no-clean``` flag at the end of the test invocation. E.g. ```lib/test.sh week4/tests --no-clean```
