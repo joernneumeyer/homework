@@ -3,6 +3,7 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+AUTO_CLEAN=1
 
 if [[ ! -d $1 ]]
 then
@@ -10,11 +11,25 @@ then
   exit
 fi
 
+TEST_FOLDER=$1
+
+shift
+
+while [[ $1 ]]
+do
+  case $1 in
+    "--no-clean")
+    AUTO_CLEAN=0
+    ;;
+  esac
+  shift
+done
+
 cd lib
 make > /dev/null
 cd ..
 
-TEST_FILES=$(find $1 -name "*.test.h")
+TEST_FILES=$(find ${TEST_FOLDER} -name "*.test.h")
 
 TEST_SOURCE=$(printf "#include <neu_assert.h>\r\n")
 
@@ -45,3 +60,9 @@ echo ${TEST_SOURCE} > ${DIR}/test.c
 
 gcc -o ${DIR}/test.o -lneu -Llib -Ilib -I. ${DIR}/test.c
 ./test.o
+
+if [[ 1 = $AUTO_CLEAN ]]
+then
+  rm ${DIR}/test.c
+  rm ${DIR}/test.o
+fi
