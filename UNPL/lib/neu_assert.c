@@ -48,6 +48,16 @@ void neu_assert_add_test(neu_assert_test_case) {
   neu_assert_test_tail = assert_test;
 }
 
+void neu_assert_run() {
+  neu_assert_test_node_t* runner = neu_assert_test_head;
+  while (runner) {
+    if (runner->test) {
+      runner->test();
+    }
+    runner = runner->next;
+  }
+}
+
 void neu_assert(boolean condition, const char* message) {
   ++neu_assert_assertion_counter;
   if (condition) return;
