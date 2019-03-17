@@ -25,7 +25,7 @@ TEST_SOURCE="${TEST_SOURCE}$(echo "int main() { neu_assert_init();")"
 
 for test_file in $TEST_FILES
 do
-  functions=$(cat $test_file | grep -Eo "void ([a-zA-Z_])+" | echo $(read arr; set $arr; echo $2))
+  functions=$(cat $test_file | grep -Eo "void test[a-zA-Z_]+" | echo $(read arr; set $arr; echo $2))
   for func in $functions
   do
     TEST_SOURCE="${TEST_SOURCE}neu_assert_add_test($func);"
