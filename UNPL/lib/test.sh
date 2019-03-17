@@ -2,6 +2,8 @@
 
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 if [[ ! -d $1 ]]
 then
   echo "Please provide a valid test folder!"
@@ -39,7 +41,7 @@ TEST_SOURCE="${TEST_SOURCE}neu_assert_run();
   neu_assert_report();
 }"
 
-echo ${TEST_SOURCE} > test.c
+echo ${TEST_SOURCE} > ${DIR}/test.c
 
-gcc -o test.o -lneu -Llib -Ilib -I. test.c
+gcc -o ${DIR}/test.o -lneu -Llib -Ilib -I. ${DIR}/test.c
 ./test.o
