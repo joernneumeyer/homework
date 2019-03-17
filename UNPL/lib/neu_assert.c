@@ -3,10 +3,21 @@
 #include <neu_types.h>
 
 neu_types_linked_list_struct(neu_assert_message_node, const char*);
+typedef struct neu_assert_test_node {
+  void(*test)(void);
+  struct neu_assert_test_node* next;
+} neu_assert_test_node_t;
 
 neu_assert_message_node_t* neu_assert_message_node_make() {
   neu_assert_message_node_t* result = neu_calloc(neu_assert_message_node_t, 1);
   result->value = NULL;
+  result->next = NULL;
+  return result;
+}
+
+neu_assert_message_node_t* neu_assert_test_node_make() {
+  neu_assert_test_node_t* result = neu_calloc(neu_assert_test_node_t, 1);
+  result->test = NULL;
   result->next = NULL;
   return result;
 }
